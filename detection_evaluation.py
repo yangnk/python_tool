@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 from __future__ import division
 import os
-import math
 
 # 计算一键多值dict记录数
 # input：一键多值dict
@@ -162,14 +161,14 @@ if __name__ == "__main__":
 
             result_recall = "recall=%.3f" % recall
             result_precision = "precision=%.3f" % precision
-            result = "%s %s %s" % (result_recall, result_precision, name_l)
+            result = "%s, %s, %s" % (result_recall, result_precision, name_l)
             print result
             file_result.writelines(result + "\n")
             file_result.flush()
-    result_recall_average = "average recall=%.3f" % sum_recall / cnt_valid
-    result_precision_average = "average precision=%.3f" % sum_precision / cnt_valid
-    result_average = "============\n"
-    result_average += "%s %s" % (result_recall, result_precision, name_l)
+    result_recall_average = "average recall=%.3f" % (sum_recall / cnt_valid)
+    result_precision_average = "average precision=%.3f" % (sum_precision / cnt_valid)
+    result_average = "\n"
+    result_average += "%s, %s " % (result_recall_average, result_precision_average)
     print result_average
     file_result.writelines(result_average + "\n")
     file_result.flush()
