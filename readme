@@ -1,8 +1,22 @@
 ---
-title: 2017-6-27未命名文件 
-tags: 新建,模板,小书匠
+title: 图像预处理小工具集合
+tags: 
 grammar_cjkRuby: true
 ---
+### 运行环境
+1. mac 10.12, python 2.7;
+### 工具说明
+1. `detection_evaluation.py`计算abel_file和detect_file目录下所有文件的recall和precision。
+- 目录结构：./data/label_file/ 存放人工标注好的.txt文件，./data/detect_file/ 存放检测出来的.txt文件，./result/resut 存放检测结果；
+-  注意事项：label_file和detect_file请保存正确标注格式，否则无法正确运行；
+-  结果说明：每次输出一个文件的recall和precision，无效文件输出`none`，最后输出所有有效文件的average recall和average precision；
+2. `validate_file.py`效验file目录下所有文件是否符合格式。
+- 目录结构：./file 存放所有 .txt 文件；./valid_file 存放运行后有效的 .txt 文件；./invalid_file 存放运行后无效的 .txt 文件；
+- 有效.txt 格式说明： 对于一条记录`x0 x1 x2 x3 x4 x5`满足x0以 .jpg 结束字符串，x2, x3, x4, x5 为非负整数； 
 
 
-欢迎使用 **{小书匠}(xiaoshujiang)编辑器**，您可以通过==设置==里的修改模板来改变新建文章的内容。
+### 处理流程
+
+### TODO
+
+### bug
