@@ -41,9 +41,13 @@ if __name__ == "__main__":
     path_file = os.path.join(os.getcwd(), "file")
     path_valid = os.path.join(os.getcwd(), "valid_file")
     path_invalid = os.path.join(os.getcwd(), "invalid_file")
+    name_result = os.path.join(os.getcwd(), 'result_invalid_file.txt')
+    file_result = open(name_result, 'w+')
     # print "ok"
     # 判定file中格式是否有效
     for name_file in file_list_name:
+        if name_file.split(".")[-1] != 'txt':
+            continue
         file = open(name_file, "r")
         info_list = file.readlines()
         cnt = 0
@@ -53,6 +57,8 @@ if __name__ == "__main__":
             if is_valid(info_str) == False:
                 # name_file.split("\\")[-1]
                 shutil.copyfile(os.path.join(path_file, name_file.split("/")[-1]), os.path.join(path_invalid, name_file.split("/")[-1]))
+                print(name_file.split("/")[-1])
+                file_result.writelines(name_file.split("/")[-1])
                 break
             if cnt == info_len:
                 shutil.copyfile(os.path.join(path_file, name_file.split("/")[-1]), os.path.join(path_valid, name_file.split("/")[-1]))

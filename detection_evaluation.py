@@ -100,13 +100,13 @@ if __name__ == "__main__":
         name_l = path_abs_l.split('/')[-1]
         if name_l.split('.')[-1] != "txt":
             continue
-        elif name_l in [x.split('/')[-1] for x in listdir_abs_d] == False:
+        elif (name_l in [x.split('/')[-1] for x in listdir_abs_d] == False) or (len(listdir_abs_d) == 0):
             file_result.writelines("none" + ", ")
             file_result.writelines(name_l + "\n")
             continue
         else:
             file_l = open(path_abs_l)
-            path_abs_d = os.getcwd() + "/data/detect_file_test/" + name_l
+            path_abs_d = os.getcwd() + "/data/detect_file/" + name_l
             file_d = open(path_abs_d);
             list_l = file_l.readlines();
             list_d = file_d.readlines();
@@ -163,12 +163,15 @@ if __name__ == "__main__":
             print result
             file_result.writelines(result + "\n")
             file_result.flush()
-    result_recall_average = "average recall=%.3f" % (sum_recall / cnt_valid)
-    result_precision_average = "average precision=%.3f" % (sum_precision / cnt_valid)
-    result_average = "\n%s, %s" % (result_recall_average, result_precision_average)
+            file_l.close()
+            file_d.close()
+    if(cnt_valid != 0):
+        result_recall_average = "average recall=%.3f" % (sum_recall / cnt_valid)
+        result_precision_average = "average precision=%.3f" % (sum_precision / cnt_valid)
+        result_average = "\n%s, %s" % (result_recall_average, result_precision_average)
+    else:
+        result_average = 'none valid file.'
     print result_average
     file_result.writelines(result_average)
     file_result.flush()
-    file_l.close()
-    file_d.close()
     file_result.close()
