@@ -16,8 +16,8 @@ def init():
         os.mkdir(os.path.join(os.getcwd(), "invalid_file"))
     # if os.path.exists(os.path.join(os.getcwd(), "result_valid_file.txt")) == True:
     #     os.remove(os.path.join(os.getcwd(), "result_valid_file.txt"))
-    os.system("touch result_valid_file.txt")
-    os.system("chmod 770 result_valid_file.txt")
+    os.system("touch result_invalid_file.txt")
+    os.system("chmod 770 result_invalid_file.txt")
     return file_list_name
 
 # 判定该条记录是否有效
@@ -58,7 +58,7 @@ if __name__ == "__main__":
                 # name_file.split("\\")[-1]
                 shutil.copyfile(os.path.join(path_file, name_file.split("/")[-1]), os.path.join(path_invalid, name_file.split("/")[-1]))
                 print(name_file.split("/")[-1])
-                file_result.writelines(name_file.split("/")[-1])
+                file_result.writelines(name_file.split("/")[-1] + '\n')
                 break
             if cnt == info_len:
                 shutil.copyfile(os.path.join(path_file, name_file.split("/")[-1]), os.path.join(path_valid, name_file.split("/")[-1]))

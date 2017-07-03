@@ -1,0 +1,5 @@
+file/*
+result/*
+test/*
+data/detect_file/*
+data/label_file/*
