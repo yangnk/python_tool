@@ -16,6 +16,9 @@ def multi_dict_len(dict):
 # 计算两个矩形重叠面积
 # input：矩形a，矩形b
 # output：两个矩形框是否匹配, 两个矩形IOU = a ∩ b/a ∪ b
+
+ign_list=[num for num in xrange(191,253)]
+
 def calcu_IOU(a, b):
     xa1 = a[0]
     ya1 = a[1]
@@ -100,34 +103,38 @@ if __name__ == "__main__":
         name_l = path_abs_l.split('/')[-1]
         if name_l.split('.')[-1] != "txt":
             continue
-        elif (name_l in [x.split('/')[-1] for x in listdir_abs_d] == False) or (len(listdir_abs_d) == 0):
+        elif (name_l not in [x.split('/')[-1] for x in listdir_abs_d]) or (len(listdir_abs_d) == 0):
+            print('none, %s' % (name_l))
             file_result.writelines("none" + ", ")
             file_result.writelines(name_l + "\n")
             continue
         else:
             file_l = open(path_abs_l)
             path_abs_d = os.getcwd() + "/data/detect_file/" + name_l
-            file_d = open(path_abs_d);
-            list_l = file_l.readlines();
-            list_d = file_d.readlines();
+            file_d = open(path_abs_d)
+            list_l = file_l.readlines()
+            list_d = file_d.readlines()
             # 将一个label_file存到dict_l中，一个detect_file存到dict_l中
-            dict_l = {};
-            dict_d = {};
+            dict_l = {}
+            dict_d = {}
             for item in list_l:
-                one = item.split();
-                char = one[1];
-                info_0 = one[2:];
+                one = item.split()
+                char = one[1]
+                if char in ign_list:
+                    continue
+                info_0 = one[2:]
                 info = map(int, info_0)
                 dict_l.setdefault(char, []).append(info)
             for item in list_d:
-                one = item.split();
-                char = one[1];
-                info_0 = one[2:];
+                one = item.split()
+                char = one[1]
+                info_0 = one[2:]
                 info = map(int, info_0)
                 dict_d.setdefault(char, []).append(info)
             dict_len_l = multi_dict_len(dict_l)
             dict_len_d = multi_dict_len(dict_d)
 
+            # 新增
             # ==计算recall：START==
             # cnt_bingo表示在dict_d中识别出来的字符数量
             cnt_bingo = 0
@@ -142,7 +149,10 @@ if __name__ == "__main__":
                     if dict_d.has_key(dict_one):
                         dict_new_l[dict_one] = dict_l[dict_one]
                         cnt_bingo += len(dict_l[dict_one])
-            recall = cnt_bingo / dict_len_l
+            if dict_len_l == 0:
+                recall = 0
+            else:
+                recall = cnt_bingo / dict_len_l
             # ==计算recall：END==
 
             # ==计算precision:START==
@@ -150,7 +160,10 @@ if __name__ == "__main__":
             cnt_pefect = 0
             for dict_one in dict_new_l:
                 cnt_pefect += match_num(dict_l[dict_one], dict_d[dict_one])
-            precision = cnt_pefect / cnt_bingo
+            if cnt_bingo == 0:
+                precision = 0
+            else:
+                precision = cnt_pefect / cnt_bingo
             # ==计算precision:END==
 
             cnt_valid += 1
@@ -168,7 +181,7 @@ if __name__ == "__main__":
     if(cnt_valid != 0):
         result_recall_average = "average recall=%.3f" % (sum_recall / cnt_valid)
         result_precision_average = "average precision=%.3f" % (sum_precision / cnt_valid)
-        result_average = "\n%s, %s" % (result_recall_average, result_precision_average)
+        result_average = "\nvalid count=%s, %s, %s" % (cnt_valid ,result_recall_average, result_precision_average)
     else:
         result_average = 'none valid file.'
     print result_average

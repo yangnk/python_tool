@@ -24,7 +24,7 @@ def init():
 # input: 标注文件中一条记录
 # output：该条记录有效：True，该条记录无效：False
 def is_valid(info_str):
-    info_str_list = info_str.split(" ")
+    info_str_list = info_str.split()
     # info_str_list = map(int, info_str_list[2,])
     info_str_list_4 = map(int, info_str_list[2:])
     if len(info_str_list) != 6:

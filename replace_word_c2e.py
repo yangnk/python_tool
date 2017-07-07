@@ -1,7 +1,8 @@
 #! usr/bin/env python
 # -*- coding:utf-8 -*-
 import os
-# 字符转编码表
+
+# 字符转编码表工具
 words_name = os.path.join(os.getcwd(), "words_all.txt")
 label_filedir = os.listdir(os.path.join(os.getcwd(), "file"))
 new_filedir = os.listdir(os.path.join(os.getcwd(), "result"))
