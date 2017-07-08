@@ -3,3 +3,12 @@ result/*
 test/*
 data/detect_file/*
 data/label_file/*
+data/.DocumentRevisions-V100/
+data/.PKInstallSandboxManager-SystemSoftware/
+data/.PKInstallSandboxManager/
+data/.Spotlight-V100/
+data/.fseventsd/
+data/.vol/
+file/
+result/
+test/
