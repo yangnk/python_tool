@@ -32,8 +32,3 @@
 1. 先用`validate_file.py`对file 进行有效性检查，valid_file／ 中生成有效file文件，再用`detection_evaluation.py`计算。
 
 2. file 文件格式统一为：一条记录`x0 x1 x2 x3 x4 x5`满足x0以 .jpg 结束字符串，x1 为字符编码, x2, x3 为标注框左上角（x， y）, x4，x5 分别为标注框width，height； 
-
-### TODO
-1. 
-
-### bug
